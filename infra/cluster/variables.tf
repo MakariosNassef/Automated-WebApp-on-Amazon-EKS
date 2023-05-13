@@ -1,0 +1,29 @@
+variable "PRIVATE_SUBNET_ID" {
+  type = string
+}
+
+variable "PUBLIC_SUBNET_ID" {
+  type = string
+}
+
+variable "PUBLIC_SUBNET_ID_2" {
+  type = string
+}
+
+variable "VPC_ID" {
+  type = string
+}
+
+variable "CLUSTER_NAME" {
+  type = string
+}
+
+variable "namespace" {
+  description = "The Kubernetes namespace in which my EBS CSI driver deployment exists"
+  type        = string
+}
+
+variable "service_account_name" {
+  description = "The name of my Kubernetes service account"
+  type        = string
+}
