@@ -13,7 +13,7 @@ resource "aws_instance" "jenkins-instance" {
   # the Public SSH key
   key_name = var.KEY_PAIR
 
-  user_data =  "${file("user_data.sh")}" # var.USER_DATA
+  user_data =  var.USER_DATA
   connection {
     user        = var.EC2_USER
     private_key = file("${var.PRIVATE_KEY_PATH}")
