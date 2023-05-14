@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout external proj 🙈🙈🙈') {
             steps {
-                git url: 'https://github.com/MakariosNassef/Automated-WebApp-on-Amazon-EKS.git', branch: 'main' , credentialsId: 'git-credential'
+                git url: 'https://github.com/MakariosNassef/Automated-WebApp-on-Amazon-EKS.git', branch: 'master' , credentialsId: 'git-credential'
             }
         }
         stage('Build Docker image Python app and push to ecr 🚚📌') {
