@@ -1,2 +1,4 @@
-jenkins_admin_username: admin
-jenkins_admin_password: admin
+# Make sure to modify the user name and password before running "automated_deployment.sh" for the first time.
+
+jenkins_admin_username: mac
+jenkins_admin_password: mac

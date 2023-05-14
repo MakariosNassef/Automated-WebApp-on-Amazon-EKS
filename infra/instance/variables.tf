@@ -2,9 +2,6 @@ variable "INSTANCE_TYPE" {
   type        = string
   description = "instance_type"
 }
-variable "KEY_PAIR" {
-  type = string
-}
 
 variable "AMI" {
   description = "AMI"
@@ -49,11 +46,22 @@ variable "USER_DATA" {
         sudo usermod -aG docker jenkins
         sudo usermod -aG docker aws
         newgrp docker
-        echo "install kubectl"
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-        echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
-        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+          echo "install kubectl"
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+          echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+        # Adjust permissions on the docker.sock file so that jenkins user can access it
+        sudo apt update
+        sudo apt install acl
+        sudo setfacl -m user:jenkins:rw /var/run/docker.sock 
+
+        # update awscli 
+        curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+        python3 get-pip.py
+        python3 -m pip install --upgrade awscli
         EOF
   description = "Docker Installation user Data"
 }

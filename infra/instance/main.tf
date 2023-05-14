@@ -10,17 +10,19 @@ resource "aws_instance" "jenkins-instance" {
 
   vpc_security_group_ids = [aws_security_group.ssh-allowed.id]
 
-  # the Public SSH key
-  key_name = var.KEY_PAIR
+  #key_name = var.KEY_PAIR
+  key_name = aws_key_pair.jenkins_ec2_keypair.key_name
 
-  user_data =  var.USER_DATA
+  user_data = var.USER_DATA
   connection {
     user        = var.EC2_USER
     private_key = file("${var.PRIVATE_KEY_PATH}")
   }
   depends_on = [
     aws_iam_role_policy_attachment.ECR_PullPush_role_policy_role,
+    aws_key_pair.jenkins_ec2_keypair,
   ]
+
 }
 
 
@@ -68,7 +70,6 @@ POLICY
 
 
 resource "aws_iam_role" "ElasticContainerRegistry_ECR_PullPush" {
-  # The name of the role
   name = "ECR_PullPush_role"
 
   # The policy that grants an entity permission to assume the role.
@@ -136,9 +137,15 @@ resource "aws_security_group" "ssh-allowed" {
   }
 }
 
-resource "null_resource" "jenkins_install" {
-  provisioner "local-exec" {
-    command = "ansible-playbook -i '${aws_instance.jenkins-instance.public_ip},' -u ubuntu --private-key /home/mac/Downloads/mac-keyPair.pem /home/mac/Desktop/DevOps-Bootcamp-Capstone-Project/ansible_jenkins_config/tasks/main.yml"
-  }
-  depends_on = [aws_instance.jenkins-instance, ]
+
+
+resource "tls_private_key" "ansible_keypair" {
+  algorithm   = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "jenkins_ec2_keypair" {
+  key_name = "jenkins_ec2_keypair"
+  public_key = tls_private_key.ansible_keypair.public_key_openssh
+  depends_on = [ tls_private_key.ansible_keypair ]
 }

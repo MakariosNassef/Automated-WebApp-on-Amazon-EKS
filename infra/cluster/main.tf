@@ -1,10 +1,10 @@
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_cluster
 resource "aws_eks_cluster" "eks" {
-  name = var.CLUSTER_NAME # Name of the cluster.
+  name = var.CLUSTER_NAME 
   # The Amazon Resource Name (ARN) of the IAM role that provides permissions for 
   # the Kubernetes control plane to make calls to AWS API operations on your behalf
   role_arn = aws_iam_role.eks_cluster.arn
-  version  = "1.24" # Desired Kubernetes master version
+  version  = "1.24" 
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = true
@@ -25,7 +25,6 @@ resource "aws_eks_cluster" "eks" {
 
 # Resource: aws_iam_role
 resource "aws_iam_role" "eks_cluster" {
-  # The name of the role
   name = "eks-cluster"
 
   # The policy that grants an entity permission to assume the role.

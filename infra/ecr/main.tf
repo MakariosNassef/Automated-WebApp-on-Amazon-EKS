@@ -41,7 +41,7 @@ data "aws_iam_policy_document" "aws_ecr_policy" {
 resource "aws_ecr_repository_policy" "aws_ecr_policy" {
   for_each   = toset(var.ecr_names)
   repository = each.value
-  policy = data.aws_iam_policy_document.aws_ecr_policy.json
+  policy     = data.aws_iam_policy_document.aws_ecr_policy.json
 }
 
 

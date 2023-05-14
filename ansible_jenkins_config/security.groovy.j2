@@ -7,8 +7,10 @@ def instance = Jenkins.getInstance()
 
 println "--> creating local user 'admin'"
 
+// Make sure to modify the user name and password before running "automated_deployment.sh" for the first time.
+
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-hudsonRealm.createAccount('admin','admin')
+hudsonRealm.createAccount('mac','mac')
 instance.setSecurityRealm(hudsonRealm)
 
 def strategy = new FullControlOnceLoggedInAuthorizationStrategy()

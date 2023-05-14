@@ -44,7 +44,7 @@ metadata:
   name: flaskdb-pv-claim
 spec:
   accessModes:
-  - ReadWriteMany
+  - ReadWriteOnce
   resources:
     requests:
       storage: 10Gi

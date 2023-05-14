@@ -45,5 +45,4 @@ module "instance_module" {
   MAIN_VPC_ID      = module.network_module.VPC_ID_OUTPUT
   EGRESS_CIDR      = "0.0.0.0/0"
   INGRESS_CIDER    = "0.0.0.0/0"
-  KEY_PAIR         = "mac-keyPair"
 }
