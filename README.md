@@ -1,6 +1,6 @@
 # Automated-Web-Applications-on-Amazon-EKS.
-
 Objective: Automate infrastructure deployment and enable seamless CI/CD for a web application using Terraform, provisioning an EC2 instance, ECR, and EKS. Employ Ansible to install essential tools Jenkins, Configure Jenkins access and install necessary plugins on the EC2 instance.
+![ci-cd pipeline with ingress and eks](https://github.com/MakariosNassef/Automated-WebApp-on-Amazon-EKS/assets/28235504/c4e211ef-c8ce-45e5-b256-a78e414285c8)
 
 ## Prerequisites:
 - ✅  Git
@@ -11,14 +11,14 @@ Objective: Automate infrastructure deployment and enable seamless CI/CD for a we
 - ✅  AWS
 - ✅  Jenkins
 
+
 Prerequisites (Tools)
 - Terraform [Install Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 - Ansible [Installing Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
-to Apply the Terraform configurationand Install Jenkins.
-add this command "chmod +x automated_deployment.sh"
-and than run this script "./automated_deployment.sh"
-
+after that apply the Terraform configuration and Install Jenkins.
+- add this command "chmod +x automated_deployment.sh"
+- and than run this script "./automated_deployment.sh"
 
 ## Tasks Completed
 - Used Terraform to create VPC with 3 Subnet in 2 AZs,EKS cluster with two nodes, an EC2 machine for Jenkins, ECR and run Ansible playbook for configure jenkins and plugins.
@@ -47,3 +47,5 @@ and than run this script "./automated_deployment.sh"
 - An IAM role was used to grant specific permissions to Jenkins, allowing it to interact with AWS services without the need to manage and store long-term access keys or secrets within Jenkins itself.
 - Proper security groups and network policies were configured to control inbound and outbound traffic to the EKS cluster and worker nodes.
 - Secure access controls for AWS resources were implemented, utilizing IAM roles with the principle of least privilege.
+
+![Screenshots for app deployment running on AWS](https://github.com/MakariosNassef/Automated-WebApp-on-Amazon-EKS/assets/28235504/826434f5-5cde-4732-8d85-ff4f96fa12ed)
